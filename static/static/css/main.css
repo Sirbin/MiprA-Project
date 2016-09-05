@@ -1,0 +1,131 @@
+.logo {
+    margin: 20px;
+    padding-top: 60px;
+    text-align: center;
+
+}
+.message {
+    width: auto;
+    height: 35px;
+    text-align: center;
+}
+
+.login-box-crispy{
+    width: 500px;
+    height: auto;
+    border: 1px solid #3c3c3c;
+    margin: auto;
+    background: #fff6f9;
+
+}
+.login-box-crispy .login-box-header {
+    padding: 5px 10px;
+    background: #15099f;
+    height: 50px;
+}
+
+.login-box-header  h2 {
+    font-size: 25px;
+    float: left;
+    width: 50%;
+    margin-left: 15px;
+    margin-top: 10px;
+    font-family: 'Open Sans', sans-serif;
+    color: #f2f2f2;
+}
+.login-box-header .icon-home {
+    float: right;
+    margin-top: 11px;
+    height: 20px;
+}
+.login-box-form {
+    margin: 15px 10px;
+}
+/*.login-box {*/
+    /*width: 400px;*/
+/*}*/
+
+.login-form {
+    margin:  10px 20px;
+    display: block;
+    font-family: "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+}
+
+.login-form input[type='text'], select {
+    width: 400px;
+    border-radius: 8px;
+    display: block;
+    border: 2px solid #0e90d2;
+    box-shadow: 2px 2px 3px #666;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+
+ }
+.login-form input[type='password'],select {
+    width: 400px;
+    border-radius: 8px;
+    display: block;
+    border: 2px solid #0e90d2;
+    box-shadow: 2px 2px 3px #666;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+ }
+
+.login-form input[type='text']:focus{
+    border: 2px solid #00A300;
+}
+
+button.btn, input[type="submit"].btn {
+    margin-top: 25px;
+    display: block;
+    width: auto;
+}
+
+.login-form label {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+
+.row-fluid [class*="span"]:first-child {
+    margin-left: 363px;
+    width: 502px;
+    display: block;
+}
+
+.logo-box {
+    width: 400px;
+    margin: 10px auto;
+}
+
+.logo-box .icons {
+    text-align: center;
+    margin: 10px 80px 10px 80px;
+}
+
+.form-horizontal {
+    width: 600px;
+    margin: auto;
+
+}
+.message {
+    list-style: none;
+
+}
+.errorlist{
+    list-style-type: none;
+    margin-left: 0px;
+}
+
+.box-header {
+    height: 16px;
+    font-size: 16px;
+    line-height: 16px;
+    padding: 10px;
+    background: #08c;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    overflow: hidden;
+}
+

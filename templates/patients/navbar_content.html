@@ -1,0 +1,41 @@
+{% load patientsTags %}
+
+        <div class="box span12">
+					<div class="box-header">
+						<h2><i class="halflings-icon hand-top"></i><span class="break"></span>NavBar Pazienti</h2>
+					</div>
+					<div class="box-content">
+
+						<a href="{% url 'patients' %}" class="quick-button-small span2">
+							<i class="icon-ambulance"></i>
+							<p>Pazienti</p>
+							<span class="notification blue">{% totalPatients %}</span>
+						</a>
+						<a href="{% url 'medic_list' %}" class="quick-button-small span2">
+							<i class="icon-user-md"></i>
+							<p>Medici</p>
+							<span class="notification green">{% totalDoctor %}</span>
+						</a>
+						<a href="{% url 'pathology_list' %}" class="quick-button-small span2">
+							<i class="icon-book"></i>
+							<p>Patologie</p>
+                            <span class="notification green">{% totalPathology %}</span>
+						</a>
+						<a  href="{% url 'user_manager' %}" class="quick-button-small span2">
+							<i class="icon-group"></i>
+							<p>Utenti</p>
+                            <span class="notification green">{% totalUser %}</span>
+						</a>
+						<a href="{% url 'information_infrastructure' %}" class="quick-button-small span2">
+							<i class="icon-hospital"></i>
+							<p>Infrastruttura</p>
+						</a>
+						<a class="quick-button-small span2">
+							<i class="icon-calendar"></i>
+							<p>Calendario</p>
+							<span class="notification red">8</span>
+						</a>
+
+						<div class="clearfix"></div>
+					</div>
+				</div>

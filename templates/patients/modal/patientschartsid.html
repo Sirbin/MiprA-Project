@@ -1,0 +1,15 @@
+{% load staticfiles %}
+
+
+
+
+
+{% block modal %}
+
+    <form class="form-control" action="{% url "patients_charts_blood" patient_id=patient_single patientblood_id=patientblood_id %}" method="post">{% csrf_token %}
+        {{ formB.as_p }}
+        <input type="submit" class="btn btn-primary" value="Salva">
+    </form>
+{% endblock %}
+
+

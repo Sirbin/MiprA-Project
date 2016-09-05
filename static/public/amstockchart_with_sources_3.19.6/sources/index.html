@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>amStock Example</title>
+        <link rel="stylesheet" href="../amcharts/style.css" type="text/css">
+
+        <script src="amcharts/utils/Class.js" type="text/javascript"></script>
+        <script src="amcharts/utils/Utils.js" type="text/javascript"></script>
+        <script src="amcharts/utils/DateUtils.js" type="text/javascript"></script>
+
+        <script src="amcharts/drawingEngine/AmDraw.js" type="text/javascript"></script>
+        <script src="amcharts/drawingEngine/AmDObject.js" type="text/javascript"></script>
+        <script src="amcharts/drawingEngine/SVGRenderer.js" type="text/javascript"></script>
+        <script src="amcharts/drawingEngine/VMLRenderer.js" type="text/javascript"></script>
+
+        <script src="amcharts/chartClasses/AmChart.js" type="text/javascript"></script>
+        <script src="amcharts/chartClasses/AmBalloon.js" type="text/javascript"></script>
+        <script src="amcharts/chartClasses/TrendLine.js" type="text/javascript"></script>
+        <script src="amcharts/chartClasses/AmCoordinateChart.js" type="text/javascript"></script>
+        <script src="amcharts/chartClasses/AmRectangularChart.js" type="text/javascript"></script>
+        <script src="amcharts/chartClasses/AmSlicedChart.js" type="text/javascript"></script>
+        <script src="amcharts/chartClasses/AmGraph.js" type="text/javascript"></script>
+        <script src="amcharts/chartClasses/ChartCursor.js" type="text/javascript"></script>
+        <script src="amcharts/chartClasses/SimpleChartScrollbar.js" type="text/javascript"></script>
+        <script src="amcharts/chartClasses/ChartScrollbar.js" type="text/javascript"></script>
+
+        <script src="amcharts/geom/Bezier.js" type="text/javascript"></script>
+        <script src="amcharts/geom/Cuboid.js" type="text/javascript"></script>
+        <script src="amcharts/geom/Geom.js" type="text/javascript"></script>
+
+        <script src="amcharts/AmLegend.js" type="text/javascript"></script>
+        <script src="amcharts/AmPieChart.js" type="text/javascript"></script>
+        <script src="amcharts/AmXYChart.js" type="text/javascript"></script>
+        <script src="amcharts/AmSerialChart.js" type="text/javascript"></script>
+        <script src="amcharts/AmRadarChart.js" type="text/javascript"></script>
+        <script src="amcharts/AmAngularGauge.js" type="text/javascript"></script>
+        <script src="amcharts/AmFunnelChart.js" type="text/javascript"></script>
+
+        <script src="amcharts/axes/AxisBase.js" type="text/javascript"></script>
+        <script src="amcharts/axes/ValueAxis.js" type="text/javascript"></script>
+        <script src="amcharts/axes/CategoryAxis.js" type="text/javascript"></script>
+        <script src="amcharts/axes/RecAxis.js" type="text/javascript"></script>
+        <script src="amcharts/axes/RecItem.js" type="text/javascript"></script>
+        <script src="amcharts/axes/RecFill.js" type="text/javascript"></script>
+        <script src="amcharts/axes/RadAxis.js" type="text/javascript"></script>
+        <script src="amcharts/axes/RadItem.js" type="text/javascript"></script>
+        <script src="amcharts/axes/RadFill.js" type="text/javascript"></script>
+        <script src="amcharts/axes/GaugeAxis.js" type="text/javascript"></script>
+        <script src="amcharts/axes/GaugeArrow.js" type="text/javascript"></script>
+
+        <script src="amcharts/stock/AmStockChart.js" type="text/javascript"></script>
+        <script src="amcharts/stock/DataSet.js" type="text/javascript"></script>
+        <script src="amcharts/stock/PeriodSelector.js" type="text/javascript"></script>
+        <script src="amcharts/stock/StockGraph.js" type="text/javascript"></script>
+        <script src="amcharts/stock/StockPanel.js" type="text/javascript"></script>
+        <script src="amcharts/stock/CategoryAxesSettings.js" type="text/javascript"></script>
+        <script src="amcharts/stock/ChartCursorSettings.js" type="text/javascript"></script>
+        <script src="amcharts/stock/ChartScrollbarSettings.js" type="text/javascript"></script>
+        <script src="amcharts/stock/LegendSettings.js" type="text/javascript"></script>
+        <script src="amcharts/stock/PanelsSettings.js" type="text/javascript"></script>
+        <script src="amcharts/stock/StockEventsSettings.js" type="text/javascript"></script>
+        <script src="amcharts/stock/ValueAxesSettings.js" type="text/javascript"></script>
+        <script src="amcharts/stock/StockUtils.js" type="text/javascript"></script>
+        <script src="amcharts/stock/StockLegend.js" type="text/javascript"></script>
+        <script src="amcharts/stock/DataSetSelector.js" type="text/javascript"></script>
+        <script src="amcharts/stock/StackedBullet.js" type="text/javascript"></script>
+
+
+        <script>
+            var chart;
+            var chartData = [];
+
+            (function generateChartData() {
+                var firstDate = new Date();
+                firstDate.setDate(firstDate.getDate() - 500)
+                firstDate.setHours(0, 0, 0, 0);
+
+                for ( var i = 0; i < 500; i++ ) {
+                    var newDate = new Date(firstDate);
+                    newDate.setDate(newDate.getDate() + i);
+
+                    var a = Math.round(Math.random() * (40 + i)) + 100 + i;
+                    var b = Math.round(Math.random() * (1000 + i)) + 500 + i * 2;
+
+                    chartData.push({date:newDate, value:a, volume:b});
+                }
+            })();
+
+            var chart = AmCharts.makeChart('chartdiv',{
+                "type": "stock",
+                "path": "../amcharts/",
+                "dataSets": [{
+                    "fieldMappings": [{
+                        "fromField": "value",
+                        "toField": "value"
+                    },{
+                        "fromField": "volume",
+                        "toField": "volume"
+                    }],
+
+                    "dataProvider": chartData,
+                    "categoryField": "date"
+                }],
+
+                "panels": [{
+                    "showCategoryAxis": false,
+                    "title": "Value",
+                    "percentHeight": 70,
+
+                    "stockGraphs": [{
+                        "id": "g1",
+                        "type": "line",
+                        "valueField": "value",
+                        "bullet": "round"
+                    }],
+                    "stockLegend": {
+                        "markerType": "none"
+                    }
+                },{
+                    "title": "Volume",
+                    "percentHeight": 30,
+                    "stockGraphs": [{
+                        "valueField": "volume",
+                        "type": "column",
+                        "fillAlphas": 1
+                    }],
+                    "stockLegend": {
+                        "markerType": "none"
+                    }
+                }],
+
+                "categoryAxesSettings": {
+                    // general settings
+                },
+
+                "valueAxesSettings": {
+                    // general settings
+                },
+
+                "chartCursorSettings": {
+                    "valueBalloonsEnabled": true,
+                    "valueLineBalloonEnabled":true,
+                    "valueLineEnabled":true,
+                    "cursorPosition":"mouse"
+                },
+
+                "chartScrollbarSettings": {
+                    "graph": "g1",
+                    "usePeriod": "MM"
+                },
+
+                "periodSelector": {
+                    "position": "bottom",
+                    "periods": [{
+                        "period":"DD",
+                        "count":10,
+                        "label":"10 days"
+                    },{
+                        "period":"MM",
+                        "selected":true,
+                        "count":1,
+                        "label":"1 month"
+                    },{
+                        "period":"YYYY",
+                        "count":1,
+                        "label":"1 year"
+                    },{
+                        "period":"YTD",
+                        "label":"YTD"
+                    },{
+                        "period":"MAX",
+                        "label":"MAX"
+                    }]
+                }
+            });
+        </script>
+
+    </head>
+
+    <body style="background-color:#FFFFFF">
+        <div id="chartdiv" style="width:100%; height:600px;"></div>
+    </body>
+
+<!-- end of amcharts script-->
+</html>

@@ -1,0 +1,12 @@
+{% load staticfiles %}
+
+
+
+{% block modaltwo %}
+                        <form action="{% url "patients_charts_blood_delete" patient_id=patient_single patientblood_id=patientblood_id %}" method="post">{% csrf_token %}
+
+                            <p><strong>Vuoi Eliminare la lettura N.{{ Numero }} del paziente {{ Nome }}</strong></p>
+
+                            <input class="btn btn-info" type="submit" value="Elimina">
+                        </form>
+{% endblock %}

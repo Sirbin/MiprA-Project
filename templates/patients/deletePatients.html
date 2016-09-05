@@ -1,0 +1,13 @@
+{% extends 'base/index.html' %}
+{% load staticfiles %}
+
+
+
+{% block content %}
+    <form action="{% url 'delete_patients' pat_id=patient_id_delete %}" method="post">{% csrf_token %}
+
+        <p><strong>Vuoi Eliminare il Paziente {{ nome }}</strong></p>
+
+        <input class="btn btn-info" type="submit" value="Elimina">
+    </form>
+{% endblock %}

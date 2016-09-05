@@ -1,0 +1,129 @@
+{% extends 'base/index.html' %}
+
+{% load staticfiles %}
+{% load tz %}
+
+
+{% block title %} Patients List {% endblock %}
+
+
+
+
+{% block content %}
+
+    {% include 'patients/navbar_content.html' %}
+
+
+
+
+    <div class="row-fluid sortable ui-sortable ">
+        <div class="box span12">
+            <div class="box-header">
+                <h2>
+                    <i class="halflings-icon user"></i>
+                    <span class="break"></span>
+                    Lista Pazienti
+                </h2>
+                <div class="box-icon">
+					<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+                    <a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                    <!-- start button-->
+                    <div class="row-fluid">
+                    <div class="span12">
+                        <a  class="btn btn-danger btn-paz" data-rel='tooltip' data-original-title="Aggiungi Pazienti"
+                                        href="{% url 'registration_patients'%}"/>
+                            <i class="halflings-icon plus white"></i></a><!--style="margin-top: 6px;margin-left: 3px;"-->
+                        </div>
+                    </div>
+                    <!-- end -->
+                    <table class="table table-striped table-bordered bootstrap-datatable datatable dataTable" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
+						  <thead>
+							  <tr role="row">
+                                  <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending" style="width: 10px;text-align: center">Id <Paziente></Paziente></th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 50px;text-align: center">Nome</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Role: activate to sort column ascending" style="width: 50px;text-align: center">Cognome</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 50px;text-align: center">Città</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 50px;text-align: center">Patologie</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 50px;text-align: center">Medico</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 50px;text-align: center">GeoLocalizzazione</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Patology: activate to sort column ascending" style="width: 250px;text-align: center">Azioni</th>
+
+                              </tr>
+						  </thead>
+                          <tbody role="alert" aria-live="polite" aria-relevant="all">
+                        {% for patient in patientslist%}
+                        <tr class="odd">
+								<td class=" sorting_1">{{patient.pk}}</td>
+								<td class="center ">{{patient.first_name}}</td>
+								<td class="center ">{{ patient.last_name }}</td>
+								<td class="center ">{{ patient.city }}</td>
+
+
+
+                                <td class="'center"> {% for o in patient.pathology.all %}{{ o.name_of_pathology }}{% if forloop.counter %},{% endif %}{% empty %}<strong style="color: red">Da Inserire</strong>{% endfor %}</td>
+
+
+
+                                <td class="center">{% for o in patient.family_doctor.all %}{{ o.last_name }}{% if forloop.counter %},{% endif %}{% empty %}<strong style="color: red">Da Inserire</strong> {% endfor %}</td>
+{#                                {% for k in geo %}#}
+{#                                    {% if k.id_patients == patient.id_blood %}#}
+                                <td class="center" onclick="" id="map-canvas"> {% for k in geo %}{% if k.id_patients_for_ssn == patient.ssn %}{{ k.gpsLatitude }} - {{ k.gpsLongitude }}{% endif %}{% empty %}None{% endfor %}</td>
+{#                                        {% endif %}#}
+{#                                {% endfor %}#}
+
+
+                            <script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false"></script>
+{#                            <script>#}
+{#                                function initialize() {#}
+{##}
+{#                                    var map = new google.maps.Map(document.getElementById('map-canvas'));#}
+{#                                    var bounds = new google.maps.LatLngBounds();#}
+{##}
+{#                                        function addMarker(lat, lng, title) {#}
+{#                                            var position = new google.maps.LatLng(lat, lng);#}
+{#                                            var marker = new google.maps.Marker({#}
+{#                                                position: position,#}
+{#                                                map: map,#}
+{#                                                title: title#}
+{#                                            });#}
+{#                                            bounds.extend(position);#}
+{#                                        }#}
+{#                                        {% for poi in geo %}#}
+{#                                            {% if poi.id_patients == patient.id_blood %}#}
+{#                                                addMarker({{poi.gpsLatitude }}, {{ poi.gpsLongitude }}, "{{ patients.first_name }}");#}
+{#                                            {% endif %}#}
+{#                                        {% endfor %}#}
+{#                                        map.fitBounds(bounds);#}
+{#                                    }#}
+{##}
+{#                                google.maps.event.addDomListener(window, 'load', initialize);#}
+{#                            </script>#}
+
+
+                            <td class="center ">
+									<a class="btn btn-success" data-rel='tooltip' data-original-title="Modifica Paziente" href="{% url "edit_patients" pat_id=patient.id %}">
+										<i class="halflings-icon white edit"></i>
+									</a>
+									<a class="btn btn-danger" data-rel='tooltip' data-original-title="Elimina Paziente" href="{% url "delete_patients" pat_id=patient.id %}">
+										<i class="halflings-icon white trash"></i>
+									</a>
+                                    <a class="btn btn-danger" data-rel="tooltip" data-placement='top' data-original-title='Grafico Letture' href="{% url "patients_charts" patient_id=patient.id %}">
+                                        <i class="halflings-icon white tasks" ></i>
+                                    </a>
+								</td>
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}
+

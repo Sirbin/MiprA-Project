@@ -1,0 +1,1426 @@
+{% load staticfiles %}
+{% load patientsTags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	
+	<!-- start: Meta -->
+	<meta charset="utf-8">
+	<title>{% block title %}Dashboard{% endblock %}</title>
+	<meta name="description" content="Metro Admin Template.">
+	<meta name="author" content="Łukasz Holeczek">
+	<meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+	<!-- end: Meta -->
+	
+	<!-- start: Mobile Specific -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- end: Mobile Specific -->
+	
+	<!-- start: CSS -->
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+    <link href="{% static "css/main9.css" %}" rel="stylesheet">
+	<link id="bootstrap-style" href="{% static  "css/bootstrap.min.css" %}" rel="stylesheet">
+	<link href="{% static "css/bootstrap-responsive.min.css" %}" rel="stylesheet">
+	<link id="base-style" href="{% static "css/style.css" %}" rel="stylesheet">
+	<link id="base-style-responsive" href="{% static "css/style-responsive.css"%}" rel="stylesheet">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext' rel='stylesheet' type='text/css'>
+	<!-- end: CSS -->
+	{% block event %}
+
+
+
+    {% endblock %}
+
+    {% block js_charts%}
+
+     <script src="{% static "amcharts_3.19.6/amcharts/amcharts.js" %}" type="text/javascript"></script>
+     <script src="{% static "amcharts_3.19.6/amcharts/serial.js" %}" type="text/javascript"></script>
+     <script src="{% static "amcharts_3.19.6/amcharts/themes/dark.js" %}" type="text/javascript"></script>
+     <script src="{% static "amcharts_3.19.6/amcharts/gauge.js" %}" type="text/javascript"></script>
+     <script src="{% static "amcharts_3.19.6/amcharts/plugins/dataloader/dataloader.min.js" %}" type="text/javascript"></script>
+     <script src="{% static "amcharts_3.19.6/amcharts/pie.js"%}" type="text/javascript"></script>
+
+     <link id="base-style-responsive" href="{% static "amcharts_3.19.6/amcharts/plugins/export/export.css"%}" rel="stylesheet">
+    {% endblock %}
+
+    <!--start: order by array-->
+    <script type="text/javascript" src="{% static "js/JSLINQ.js" %}"></script>
+    <!--end: order bu array-->
+
+    <!--start: moment-->
+    <script src="{% static "js/moment.min.js"%}"></script>
+
+    <script src="{% static "js/moment.js"%}"></script>
+    <!--end moment-->
+
+    <!-- start:jquery-->
+    <script src="{% static "js/jquery-1.9.1.min.js" %}"></script>
+    <!--end:jquery-->
+
+	<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	  	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<link id="ie-style" href="css/ie.css" rel="stylesheet">
+	<![endif]-->
+	
+	<!--[if IE 9]>
+		<link id="ie9style" href="css/ie9.css" rel="stylesheet">
+	<![endif]-->
+		
+	<!-- start: Favicon -->
+	<link rel="shortcut icon" href="img/favicon.ico">
+	<!-- end: Favicon -->
+
+
+	{% block gauge %}
+    <script type="text/javascript">
+
+
+			AmCharts.ready(function () {
+
+			    // line chart, with a bullet at the end
+			    var chart = new AmCharts.AmSerialChart();
+                chart.dataProvider = {{json|safe}};
+
+{#			    chart.dataProvider = [{#}
+{#			        "day": 1,#}
+{#			            "value": 120#}
+{#			    }, {#}
+{#			        "day": 2,#}
+{#			            "value": 124#}
+{#			    }, {#}
+{#			        "day": 3,#}
+{#			            "value": 127#}
+{#			    }, {#}
+{#			        "day": 4,#}
+{#			            "value": 122#}
+{#			    }, {#}
+{#			        "day": 5,#}
+{#			            "value": 121#}
+{#			    }, {#}
+{#			        "day": 6,#}
+{#			            "value": 123#}
+{#			    }, {#}
+{#			        "day": 7,#}
+{#			            "value": 118#}
+{#			    }, {#}
+{#			        "day": 8,#}
+{#			            "value": 113#}
+{#			    }, {#}
+{#			        "day": 9,#}
+{#			            "value": 122#}
+{#			    }, {#}
+{#			        "day": 10,#}
+{#			            "value": 125,#}
+{#			        bullet: "round"#}
+{#			    }];#}
+			    chart.categoryField = "time";
+			    chart.autoMargins = false;
+			    chart.marginLeft = 0;
+			    chart.marginRight = 5;
+			    chart.marginTop = 0;
+			    chart.marginBottom = 0;
+
+			    var graph = new AmCharts.AmGraph();
+			    graph.valueField = "blood_pressure_systolic";
+			    graph.bulletField = "bullet";
+			    graph.showBalloon = true;
+			    graph.lineColor = "#a9ec49";
+			    chart.addGraph(graph);
+
+{#			    var graph1 = new AmCharts.AmGraph();#}
+{#			    graph.valueField = 'blood_pressure_diastolic';#}
+{#			    graph.bulletField = "bullet";#}
+{#			    graph.showBalloon = true;#}
+{#			    graph.lineColor = "#000000";#}
+{#			    chart.addGraph(graph1);#}
+
+                var valueAxis = new AmCharts.ValueAxis();
+			    valueAxis.gridAlpha = 0;
+			    valueAxis.axisAlpha = 0;
+			    chart.addValueAxis(valueAxis);
+
+			    var categoryAxis = chart.categoryAxis;
+			    categoryAxis.gridAlpha = 0;
+			    categoryAxis.axisAlpha = 0;
+			    categoryAxis.startOnAxis = true;
+			    chart.write("line1");
+
+
+			    // small column chart
+			    chart = new AmCharts.AmSerialChart();
+                chart.dataProvider = {{json|safe}};
+{#			    chart.dataProvider = [{#}
+{#			        "day": 1,#}
+{#			            "value": -5#}
+{#			    }, {#}
+{#			        "day": 2,#}
+{#			            "value": 3#}
+{#			    }, {#}
+{#			        "day": 3,#}
+{#			            "value": 7#}
+{#			    }, {#}
+{#			        "day": 4,#}
+{#			            "value": -3#}
+{#			    }, {#}
+{#			        "day": 5,#}
+{#			            "value": 3#}
+{#			    }, {#}
+{#			        "day": 6,#}
+{#			            "value": 4#}
+{#			    }, {#}
+{#			        "day": 7,#}
+{#			            "value": 6#}
+{#			    }, {#}
+{#			        "day": 8,#}
+{#			            "value": -3#}
+{#			    }, {#}
+{#			        "day": 9,#}
+{#			            "value": -2#}
+{#			    }, {#}
+{#			        "day": 10,#}
+{#			            "value": 6#}
+{#			    }];#}
+			    chart.categoryField = "time";
+			    chart.autoMargins = false;
+			    chart.marginLeft = 0;
+			    chart.marginRight = 0;
+			    chart.marginTop = 0;
+			    chart.marginBottom = 0;
+
+			    graph = new AmCharts.AmGraph();
+			    graph.valueField = "blood_pressure_systolic";
+			    graph.type = "column";
+			    graph.fillAlphas = 1;
+			    graph.lineColor = "#a9ec49";
+			    graph.showBalloon = true;
+			    chart.addGraph(graph);
+
+			    valueAxis = new AmCharts.ValueAxis();
+			    valueAxis.gridAlpha = 0;
+			    valueAxis.axisAlpha = 0;
+			    chart.addValueAxis(valueAxis);
+
+			    categoryAxis = chart.categoryAxis;
+			    categoryAxis.gridAlpha = 0;
+			    categoryAxis.axisAlpha = 0;
+			    chart.write("column1");
+
+
+			    // line chart, with different line color below zero
+			    chart = new AmCharts.AmSerialChart();
+			    chart.dataProvider = [{
+			        "day": 1,
+			            "value": 120
+			    }, {
+			        "day": 2,
+			            "value": 54
+			    }, {
+			        "day": 3,
+			            "value": -18
+			    }, {
+			        "day": 4,
+			            "value": -12
+			    }, {
+			        "day": 5,
+			            "value": -51
+			    }, {
+			        "day": 6,
+			            "value": 12
+			    }, {
+			        "day": 7,
+			            "value": 56
+			    }, {
+			        "day": 8,
+			            "value": 113
+			    }, {
+			        "day": 9,
+			            "value": 142
+			    }, {
+			        "day": 10,
+			            "value": 125
+			    }];
+			    chart.categoryField = "day";
+			    chart.autoMargins = false;
+			    chart.marginLeft = 0;
+			    chart.marginRight = 5;
+			    chart.marginTop = 0;
+			    chart.marginBottom = 0;
+
+			    graph = new AmCharts.AmGraph();
+			    graph.valueField = "value";
+			    graph.showBalloon = false;
+			    graph.lineColor = "#ffbf63";
+			    graph.negativeLineColor = "#289eaf";
+			    chart.addGraph(graph);
+
+			    valueAxis = new AmCharts.ValueAxis();
+			    valueAxis.gridAlpha = 0;
+			    valueAxis.axisAlpha = 0;
+			    chart.addValueAxis(valueAxis);
+
+			    categoryAxis = chart.categoryAxis;
+			    categoryAxis.gridAlpha = 0;
+			    categoryAxis.axisAlpha = 0;
+			    categoryAxis.startOnAxis = true;
+
+			    // using guide to show 0 grid
+			    var guide = new AmCharts.Guide();
+			    guide.value = 0;
+			    guide.lineAlpha = 0.1;
+			    valueAxis.addGuide(guide);
+			    chart.write("line2");
+
+
+			    // column chart with different negative colors
+			    chart = new AmCharts.AmSerialChart();
+			    chart.dataProvider = [{
+			        "day": 1,
+			            "value": -5
+			    }, {
+			        "day": 2,
+			            "value": 3
+			    }, {
+			        "day": 3,
+			            "value": 7
+			    }, {
+			        "day": 4,
+			            "value": -3
+			    }, {
+			        "day": 5,
+			            "value": 3
+			    }, {
+			        "day": 6,
+			            "value": 4
+			    }, {
+			        "day": 7,
+			            "value": 6
+			    }, {
+			        "day": 8,
+			            "value": -3
+			    }, {
+			        "day": 9,
+			            "value": -2
+			    }, {
+			        "day": 10,
+			            "value": 6
+			    }];
+			    chart.categoryField = "day";
+			    chart.autoMargins = false;
+			    chart.marginLeft = 0;
+			    chart.marginRight = 0;
+			    chart.marginTop = 0;
+			    chart.marginBottom = 0;
+
+			    graph = new AmCharts.AmGraph();
+			    graph.valueField = "value";
+			    graph.type = "column";
+			    graph.fillAlphas = 1;
+			    graph.showBalloon = false;
+			    graph.lineColor = "#ffbf63";
+			    graph.negativeFillColors = "#289eaf";
+			    graph.negativeLineColor = "#289eaf";
+			    chart.addGraph(graph);
+
+			    valueAxis = new AmCharts.ValueAxis();
+			    valueAxis.gridAlpha = 0;
+			    valueAxis.axisAlpha = 0;
+			    chart.addValueAxis(valueAxis);
+
+			    categoryAxis = chart.categoryAxis;
+			    categoryAxis.gridAlpha = 0;
+			    categoryAxis.axisAlpha = 0;
+			    chart.write("column2");
+
+
+			    // column chart (thermometer)
+			    chart = new AmCharts.AmSerialChart();
+			    chart.dataProvider = [{
+			        x: 1,
+			        y: 100
+			    }];
+			    chart.categoryField = "x";
+			    chart.rotate = true;
+			    chart.autoMargins = false;
+			    chart.marginLeft = 0;
+			    chart.marginRight = 0;
+			    chart.marginTop = 0;
+			    chart.marginBottom = 0;
+
+			    graph = new AmCharts.AmGraph();
+			    graph.valueField = "y";
+			    graph.type = "column";
+			    graph.fillAlphas = 1;
+			    graph.fillColors = ["#49cbec", "#f73838"];
+			    graph.gradientOrientation = "horizontal";
+			    graph.lineColor = "#FFFFFF";
+			    graph.showBalloon = false;
+			    chart.addGraph(graph);
+
+			    valueAxis = new AmCharts.ValueAxis();
+			    valueAxis.gridAlpha = 0;
+			    valueAxis.axisAlpha = 0;
+			    valueAxis.stackType = "100%"; // this is set to achieve that column would occupie 100% of the chart area
+			    chart.addValueAxis(valueAxis);
+
+			    categoryAxis = chart.categoryAxis;
+			    categoryAxis.gridAlpha = 0;
+			    categoryAxis.axisAlpha = 0;
+
+			    // guide to show position
+			    guide = new AmCharts.Guide();
+			    guide.value = 66;
+			    guide.lineAlpha = 1;
+			    guide.above = true;
+			    valueAxis.addGuide(guide);
+			    chart.write("thermometer1");
+
+
+
+			    // column chart (thermometer)
+			    chart = new AmCharts.AmSerialChart();
+			    chart.dataProvider = [{
+			        "x": 1,
+			            "y": 100
+			    }];
+			    chart.categoryField = "x";
+			    chart.rotate = true;
+			    chart.autoMargins = false;
+			    chart.marginLeft = 0;
+			    chart.marginRight = 0;
+			    chart.marginTop = 0;
+			    chart.marginBottom = 0;
+
+			    graph = new AmCharts.AmGraph();
+			    graph.valueField = "y";
+			    graph.type = "column";
+			    graph.fillAlphas = 1;
+			    graph.fillColors = ["#49cbec", "#f73838"];
+			    graph.gradientOrientation = "horizontal";
+			    graph.lineColor = "#FFFFFF";
+			    graph.showBalloon = false;
+			    chart.addGraph(graph);
+
+			    valueAxis = new AmCharts.ValueAxis();
+			    valueAxis.gridAlpha = 0;
+			    valueAxis.axisAlpha = 0;
+			    valueAxis.stackType = "100%"; // this is set to achieve that column would occupie 100% of the chart area
+			    chart.addValueAxis(valueAxis);
+
+			    categoryAxis = chart.categoryAxis;
+			    categoryAxis.gridAlpha = 0;
+			    categoryAxis.axisAlpha = 0;
+
+			    // guide to show position
+			    guide = new AmCharts.Guide();
+			    guide.value = 29;
+			    guide.lineAlpha = 1;
+			    guide.above = true;
+			    valueAxis.addGuide(guide);
+			    chart.write("thermometer2");
+
+
+
+
+			    // percent chart
+			    chart = new AmCharts.AmSerialChart();
+			    chart.dataProvider = [{
+			        "x": 1,
+			            "y1": 66,
+			            "y2": 34
+			    }];
+			    chart.categoryField = "x";
+			    chart.rotate = true;
+			    chart.autoMargins = false;
+			    chart.marginLeft = 0;
+			    chart.marginRight = 0;
+			    chart.marginTop = 0;
+			    chart.marginBottom = 0;
+
+			    graph = new AmCharts.AmGraph();
+			    graph.valueField = "y1";
+			    graph.type = "column";
+			    graph.fillAlphas = 0.6;
+			    graph.fillColors = "#000000";
+			    graph.gradientOrientation = "horizontal";
+			    graph.lineColor = "#FFFFFF";
+			    graph.showBalloon = false;
+			    chart.addGraph(graph);
+
+			    var graph2 = new AmCharts.AmGraph();
+			    graph2.valueField = "y2";
+			    graph2.type = "column";
+			    graph2.fillAlphas = 0.2;
+			    graph2.fillColors = "#000000";
+			    graph2.lineColor = "#FFFFFF";
+			    graph2.showBalloon = false;
+			    chart.addGraph(graph2);
+
+			    valueAxis = new AmCharts.ValueAxis();
+			    valueAxis.gridAlpha = 0;
+			    valueAxis.axisAlpha = 0;
+			    valueAxis.stackType = "100%"; // this is set to achieve that column would occupie 100% of the chart area
+			    chart.addValueAxis(valueAxis);
+
+			    categoryAxis = chart.categoryAxis;
+			    categoryAxis.gridAlpha = 0;
+			    categoryAxis.axisAlpha = 0;
+
+			    chart.write("percent1");
+
+
+			    // percent chart
+			    chart = new AmCharts.AmSerialChart();
+			    chart.dataProvider = [{
+			        "x": 1,
+			            "y1": 29,
+			            "y2": 71
+			    }];
+			    chart.categoryField = "x";
+			    chart.rotate = true;
+			    chart.autoMargins = false;
+			    chart.marginLeft = 0;
+			    chart.marginRight = 0;
+			    chart.marginTop = 0;
+			    chart.marginBottom = 0;
+
+			    graph = new AmCharts.AmGraph();
+			    graph.valueField = "y1";
+			    graph.type = "column";
+			    graph.fillAlphas = 0.6;
+			    graph.fillColors = "#000000";
+			    graph.gradientOrientation = "horizontal";
+			    graph.lineColor = "#FFFFFF";
+			    graph.showBalloon = false;
+			    chart.addGraph(graph);
+
+			    graph2 = new AmCharts.AmGraph();
+			    graph2.valueField = "y2";
+			    graph2.type = "column";
+			    graph2.fillAlphas = 0.2;
+			    graph2.fillColors = "#000000";
+			    graph2.lineColor = "#FFFFFF";
+			    graph2.showBalloon = false;
+			    chart.addGraph(graph2);
+
+			    valueAxis = new AmCharts.ValueAxis();
+			    valueAxis.gridAlpha = 0;
+			    valueAxis.axisAlpha = 0;
+			    valueAxis.stackType = "100%"; // this is set to achieve that column would occupie 100% of the chart area
+			    chart.addValueAxis(valueAxis);
+
+			    categoryAxis = chart.categoryAxis;
+			    categoryAxis.gridAlpha = 0;
+			    categoryAxis.axisAlpha = 0;
+			    chart.write("percent2");
+
+			    // small pie chart
+			    chart = new AmCharts.AmPieChart();
+			    chart.dataProvider = [{
+			        "x": 1,
+			            "value": 29
+			    }, {
+			        "x": 2,
+			            "value": 71
+			    }];
+			    chart.labelField = "x";
+			    chart.valueField = "value";
+			    chart.labelsEnabled = false;
+			    chart.balloonText = undefined;
+			    chart.valueText = undefined;
+			    chart.radius = 10; // half of a width of a div
+			    chart.colors = ["#DADADA", "#777777"];
+			    chart.startDuration = 0;
+			    chart.write("pie1");
+
+			    // small pie chart
+			    chart = new AmCharts.AmPieChart();
+			    chart.dataProvider = [{
+			        "x": 1,
+			            "value": 45
+			    }, {
+			        "x": 2,
+			            "value": 55
+			    }];
+			    chart.labelField = "x";
+			    chart.balloonText = undefined;
+			    chart.valueField = "value";
+			    chart.labelsEnabled = false;
+			    chart.valueText = undefined;
+			    chart.radius = 10;
+			    chart.colors = ["#DADADA", "#777777"];
+			    chart.startDuration = 0;
+			    chart.write("pie2");
+
+			});
+
+
+
+
+
+    </script>
+
+    {% endblock %}
+		
+		
+</head>
+
+<body>
+    <!-- start: navbar -->
+    {% include 'base/navbar.html' %}
+    <!-- end: navbar-->
+
+    <div class="container-fluid-full">
+		<div class="row-fluid">
+			<!-- start: Main Menu -->
+			<div id="sidebar-left" class="span2">
+				<div class="nav-collapse sidebar-nav">
+					<ul class="nav nav-tabs nav-stacked main-menu">
+						<li><a href="{% url 'dashboard' %}"><i class="icon-bar-chart"></i><span class="hidden-tablet"> Dashboard</span></a></li>
+{#						<li><a href="messages.html"><i class="icon-envelope"></i><span class="hidden-tablet"> Messages</span></a></li>#}
+{#						<li><a href="tasks.html"><i class="icon-tasks"></i><span class="hidden-tablet"> Tasks</span></a></li>#}
+{#						<li><a href="ui.html"><i class="icon-eye-open"></i><span class="hidden-tablet"> UI Features</span></a></li>#}
+{#						<li><a href="widgets.html"><i class="icon-dashboard"></i><span class="hidden-tablet"> Widgets</span></a></li>#}
+                        <li><a href="{% url 'patients' %}"><i class="icon-ambulance"></i><span class="hidden-tablet"> Pazienti</span></a></li>
+                        <li><a href="{% url 'medic_list' %}"><i class="icon-user-md"></i><span class="hidden-tablet"> Medici</span></a></li>
+                        <li><a href="{% url 'pathology_list' %}"><i class="icon-book"></i><span class="hidden-tablet"> Patologie</span></a></li>
+						<li><a href="{% url 'user_manager' %}"><i class="icon-group"></i><span class="hidden-tablet"> Gestione Utenti</span></a></li>
+						<li><a href="{% url 'information_infrastructure' %}"><i class="icon-hospital"></i><span class="hidden-tablet">Infrastruttura </span></a></li>
+{#                        <li>#}
+{#							<a class="dropmenu" href="#"><i class="icon-screenshot"></i><span class="hidden-tablet"> Impostazioni</span><span class="label label-important"> 1 </span></a>#}
+{#							<ul>#}
+{#                            <li><a class="submenu" href="{% url 'information_infrastructure' %}"><i class="icon-file-alt"></i><span class="hidden-tablet">Infrastruttura </span></a></li>#}
+{##}
+{#							</ul>#}
+{#						</li>#}
+{#						<li><a href="form.html"><i class="icon-edit"></i><span class="hidden-tablet"> Forms</span></a></li>#}
+{#						<li><a href="gallery.html"><i class="icon-picture"></i><span class="hidden-tablet"> Gallery</span></a></li>#}
+{#						<li><a href="table.html"><i class="icon-align-justify"></i><span class="hidden-tablet"> Tables</span></a></li>#}
+{#						<li><a href="calendar.html"><i class="icon-calendar"></i><span class="hidden-tablet"> Calendar</span></a></li>#}
+{#						<li><a href="file-manager.html"><i class="icon-folder-open"></i><span class="hidden-tablet"> File Manager</span></a></li>#}
+{#						<li><a href="icon.html"><i class="icon-star"></i><span class="hidden-tablet"> Icons</span></a></li>#}
+{#						<li><a href="login.html"><i class="icon-lock"></i><span class="hidden-tablet"> Login Page</span></a></li>#}
+					</ul>
+				</div>
+			</div>
+			<!-- end: Main Menu -->
+
+			<noscript>
+				<div class="alert alert-block span10">
+					<h4 class="alert-heading">Warning!</h4>
+					<p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
+				</div>
+			</noscript>
+
+			<!-- start: Content -->
+			<div id="content" class="span10">
+            <script type="text/javascript">
+                $(document).ready(function(){
+                   console.log('cisono')
+                });
+            </script>
+            <!-- start : Breadcrumbs -->
+{#			<ul class="breadcrumb">#}
+{#				<li>#}
+{#					<i class="icon-home"></i>#}
+{#					<a href="index.html">Home</a>#}
+{#					<i class="icon-angle-right"></i>#}
+{#				</li>#}
+{#				<li><a href="#">Dashboard</a></li>#}
+{#			</ul>#}
+            <!-- Finish Breadcrumbs
+
+            <!-- Start Message -->
+
+            {% if messages %}
+                    {% for message in messages %}
+                    <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
+                    <button type="button" class="close" data-dismiss="alert">x</button>
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+            {% endif %}
+            <!-- End Message -->
+			<div class="row-fluid">
+
+
+                {% block content %}
+
+{#				<div class="span3 statbox purple" onTablet="span6" onDesktop="span3">#}
+{#					<div class="boxchart">5,6,7,2,0,4,2,4,8,2,3,3,2</div>#}
+{#					<div class="number">854<i class="icon-arrow-up"></i></div>#}
+{#					<div class="title">visits</div>#}
+{#					<div class="footer">#}
+{#						<a href="#"> read full report</a>#}
+{#					</div>#}
+{#				</div>#}
+{#				<div class="span3 statbox green" onTablet="span6" onDesktop="span3">#}
+{#					<div class="boxchart">1,2,6,4,0,8,2,4,5,3,1,7,5</div>#}
+{#					<div class="number">123<i class="icon-arrow-up"></i></div>#}
+{#					<div class="title">sales</div>#}
+{#					<div class="footer">#}
+{#						<a href="#"> read full report</a>#}
+{#					</div>#}
+{#				</div>#}
+{#				<div class="span3 statbox blue noMargin" onTablet="span6" onDesktop="span3">#}
+{#					<div class="boxchart">5,6,7,2,0,-4,-2,4,8,2,3,3,2</div>#}
+{#					<div class="number">982<i class="icon-arrow-up"></i></div>#}
+{#					<div class="title">orders</div>#}
+{#					<div class="footer">#}
+{#						<a href="#"> read full report</a>#}
+{#					</div>#}
+{#				</div>#}
+{#				<div class="span3 statbox yellow" onTablet="span6" onDesktop="span3">#}
+{#					<div class="boxchart">7,2,2,2,1,-4,-2,4,8,,0,3,3,5</div>#}
+{#					<div class="number">678<i class="icon-arrow-down"></i></div>#}
+{#					<div class="title">visits</div>#}
+{#					<div class="footer">#}
+{#						<a href="#"> read full report</a>#}
+{#					</div>#}
+{#				</div>#}
+
+			</div>
+
+			<div class="row-fluid">
+
+{#				<div class="span8 widget blue" onTablet="span7" onDesktop="span8">#}
+{##}
+{#					<div id="stats-chart2"  style="height:282px" ></div>#}
+{##}
+{#				</div>#}
+
+{#				<div class="sparkLineStats span4 widget green" onTablet="span5" onDesktop="span4">#}
+{##}
+{#                    <ul class="unstyled">#}
+{##}
+{#                        <li><span class="sparkLineStats3"></span>#}
+{#                            Pageviews:#}
+{#                            <span class="number">781</span>#}
+{#                        </li>#}
+{#                        <li><span class="sparkLineStats4"></span>#}
+{#                            Pages / Visit:#}
+{#                            <span class="number">2,19</span>#}
+{#                        </li>#}
+{#                        <li><span class="sparkLineStats5"></span>#}
+{#                            Avg. Visit Duration:#}
+{#                            <span class="number">00:02:58</span>#}
+{#                        </li>#}
+{#                        <li><span class="sparkLineStats6"></span>#}
+{#                            Bounce Rate: <span class="number">59,83%</span>#}
+{#                        </li>#}
+{#                        <li><span class="sparkLineStats7"></span>#}
+{#                            % New Visits:#}
+{#                            <span class="number">70,79%</span>#}
+{#                        </li>#}
+{#                        <li><span class="sparkLineStats8"></span>#}
+{#                            % Returning Visitor:#}
+{#                            <span class="number">29,21%</span>#}
+{#                        </li>#}
+{##}
+{#                    </ul>#}
+{##}
+{#					<div class="clearfix"></div>#}
+{##}
+{#                </div><!-- End .sparkStats -->#}
+
+			</div>
+
+			<div class="row-fluid hideInIE8 circleStats">
+
+				<div class="span3" onTablet="span4" onDesktop="span3">
+                	<div class="circleStatsItemBox yellow">
+						<a href=" {% url 'patients' %}"><div class="header">Pazienti</div></a>
+						<span class="percent">Numero</span>
+						<div class="circleStat">
+                    		<input type="text" value="{% totalPatients %}" class="whiteCircle" />
+						</div>
+						<div class="footer">
+							<span class="count">
+{#								<span class="number">20000</span>#}
+{#								<span class="unit">MB</span>#}
+							</span>
+{#							<span class="sep"> / </span>#}
+							<span class="value">
+{#								<span class="number">50000</span>#}
+{#								<span class="unit">MB</span>#}
+							</span>
+						</div>
+                	</div>
+				</div>
+
+				<div class="span3" onTablet="span4" onDesktop="span3">
+                	<div class="circleStatsItemBox green">
+						<a href="{% url 'medic_list' %}"><div class="header">Medici</div></a>
+						<span class="percent">Numero</span>
+						<div class="circleStat">
+                    		<input type="text" value="{% totalDoctor %}" class="whiteCircle" />
+						</div>
+						<div class="footer">
+							<span class="count">
+{#								<span class="number">5000</span>#}
+{#								<span class="unit">GB</span>#}
+							</span>
+{#							<span class="sep"> / </span>#}
+							<span class="value">
+{#								<span class="number">5000</span>#}
+{#								<span class="unit">GB</span>#}
+							</span>
+						</div>
+                	</div>
+				</div>
+
+				<div class="span3" onTablet="span4" onDesktop="span3">
+                	<div class="circleStatsItemBox greenDark">
+						<a href="{% url 'pathology_list' %}"><div class="header">Patologie</div></a>
+						<span class="percent">Numero</span>
+                    	<div class="circleStat">
+                    		<input type="text" value="{% totalPathology %}" class="whiteCircle" />
+						</div>
+						<div class="footer">
+							<span class="count">
+{#								<span class="number">64</span>#}
+{#								<span class="unit">GB</span>#}
+							</span>
+{#							<span class="sep"> / </span>#}
+							<span class="value">
+{#								<span class="number">64</span>#}
+{#								<span class="unit">GB</span>#}
+							</span>
+						</div>
+                	</div>
+				</div>
+
+				<div class="span3" onTablet="span4" onDesktop="span3">
+                	<div class="circleStatsItemBox pink">
+						<a href="{% url 'user_manager' %}"><div class="header">Utenti</div></a>
+						<span class="percent">Numero</span>
+                    	<div class="circleStat">
+                    		<input type="text" value="{% totalUser %}" class="whiteCircle" />
+						</div>
+						<div class="footer">
+							<span class="value">
+								<span class="number">{% activeUser %}</span>
+								<span class="unit">Attivi</span>
+							</span>
+							<span class="sep"> / </span>
+							<span class="value">
+								<span class="number">{% totalUser %}</span>
+								<span class="unit">Utenti</span>
+							</span>
+						</div>
+                	</div>
+				</div>
+
+{#				<div class="span2" onTablet="span4" onDesktop="span2">#}
+{#                	<div class="circleStatsItemBox orange">#}
+{#						<div class="header">Memory</div>#}
+{#						<span class="percent">percent</span>#}
+{#                    	<div class="circleStat">#}
+{#                    		<input type="text" value="100" class="whiteCircle" />#}
+{#						</div>#}
+{#						<div class="footer">#}
+{#							<span class="count">#}
+{#								<span class="number">64</span>#}
+{#								<span class="unit">GB</span>#}
+{#							</span>#}
+{#							<span class="sep"> / </span>#}
+{#							<span class="value">#}
+{#								<span class="number">64</span>#}
+{#								<span class="unit">GB</span>#}
+{#							</span>#}
+{#						</div>#}
+{#                	</div>#}
+{#				</div>#}
+{##}
+{#				<div class="span2" onTablet="span4" onDesktop="span2">#}
+{#                	<div class="circleStatsItemBox greenLight">#}
+{#						<div class="header">Memory</div>#}
+{#						<span class="percent">percent</span>#}
+{#                    	<div class="circleStat">#}
+{#                    		<input type="text" value="100" class="whiteCircle" />#}
+{#						</div>#}
+{#						<div class="footer">#}
+{#							<span class="count">#}
+{#								<span class="number">64</span>#}
+{#								<span class="unit">GB</span>#}
+{#							</span>#}
+{#							<span class="sep"> / </span>#}
+{#							<span class="value">#}
+{#								<span class="number">64</span>#}
+{#								<span class="unit">GB</span>#}
+{#							</span>#}
+{#						</div>#}
+{#                	</div>#}
+{#				</div>#}
+
+			</div>
+
+			<div class="row-fluid">
+            <div class="row-fluid sortable ui-sortable ">
+        <div class="box span12">
+            <div class="box-header">
+                <h2>
+                    <i class="halflings-icon user"></i>
+                    <span class="break"></span>
+                    Picchi Pressori
+                </h2>
+                <div class="box-icon">
+					<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+                    <a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                    <table class="table table-striped table-bordered bootstrap-datatable datatable dataTable" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
+						  <thead>
+							  <tr role="row">
+                                  <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending" style="width: 10px;text-align: center">Id</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 50px;text-align: center">Id Paziente</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 50px;text-align: center">Nome</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 50px;text-align: center">Cognome</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Role: activate to sort column ascending" style="width: 150px;text-align: center">Valori Di Picco Massimo</th>
+
+                              </tr>
+						  </thead>
+                        <tbody role="alert" aria-live="polite" aria-relevant="all">
+
+                        {% for pat in patList %}
+                        <tr class="odd">
+                                <td class=" sorting_1">{{pat.pk}}</td>
+								<td class=" sorting_1"><a href="{% url "edit_patients" pat_id=pat.pk  %}"><div class="header">{{pat.ssn}}</div></a></td>
+								<td class="center ">{{pat.first_name}}</td>
+								<td class="center ">{{pat.last_name}}</td>
+
+                                {% for k in value_pressure_max %}
+                                    {% if k.id_patients_for_ssn == pat.ssn %}
+								    <td><div class="chart-block" style="padding:10px"><strong>Pressione Massima: {{ k.max_sys}}</strong> <strong>Pressione Minima:{{ k.max_dia}}</strong>
+{#                                         <div id="line1" style="vertical-align: middle; display: inline-block; width: 100px; height: 30px;">#}</div><div id="column1" style="vertical-align: middle;display: inline-block; width: 200px; height: 30px;"></div>
+                                    </td>
+                                    {% endif %}
+                                {% endfor %}
+
+
+
+{#                                <td class="center ">#}
+{#									<a class="btn btn-success" data-rel='tooltip' data-original-title="Modifica Infrastruttura" href="{% url 'edit_infrastructure' infr_id=infra.id %}">#}
+{#										<i class="halflings-icon white edit"></i>#}
+{#									</a>#}
+{#									<a class="btn btn-danger" data-rel='tooltip' data-original-title="Elimina Infrastruttura" href="{% url 'delete_infrastructure' infr_id=infra.id %}">#}
+{#										<i class="halflings-icon white trash"></i>#}
+{#									</a>#}
+{#								</td>#}
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+     </div>
+{##}
+{#				<div class="widget blue span5" onTablet="span6" onDesktop="span5">#}
+{##}
+{#					<h2><span class="glyphicons globe"><i></i></span> Demographics</h2>#}
+{##}
+{#					<hr>#}
+{##}
+{#					<div class="content">#}
+{##}
+{#						<div class="verticalChart">#}
+{##}
+{#							<div class="singleBar">#}
+{##}
+{#								<div class="bar">#}
+{##}
+{#									<div class="value">#}
+{#										<span>37%</span>#}
+{#									</div>#}
+{##}
+{#								</div>#}
+{##}
+{#								<div class="title">US</div>#}
+{##}
+{#							</div>#}
+{##}
+{#							<div class="singleBar">#}
+{##}
+{#								<div class="bar">#}
+{##}
+{#									<div class="value">#}
+{#										<span>16%</span>#}
+{#									</div>#}
+{##}
+{#								</div>#}
+{##}
+{#								<div class="title">PL</div>#}
+{##}
+{#							</div>#}
+{##}
+{#							<div class="singleBar">#}
+{##}
+{#								<div class="bar">#}
+{##}
+{#									<div class="value">#}
+{#										<span>12%</span>#}
+{#									</div>#}
+{##}
+{#								</div>#}
+{##}
+{#								<div class="title">GB</div>#}
+{##}
+{#							</div>#}
+{##}
+{#							<div class="singleBar">#}
+{##}
+{#								<div class="bar">#}
+{##}
+{#									<div class="value">#}
+{#										<span>9%</span>#}
+{#									</div>#}
+{##}
+{#								</div>#}
+{##}
+{#								<div class="title">DE</div>#}
+{##}
+{#							</div>#}
+{##}
+{#							<div class="singleBar">#}
+{##}
+{#								<div class="bar">#}
+{##}
+{#									<div class="value">#}
+{#										<span>7%</span>#}
+{#									</div>#}
+{##}
+{#								</div>#}
+{##}
+{#								<div class="title">NL</div>#}
+{##}
+{#							</div>#}
+{##}
+{#							<div class="singleBar">#}
+{##}
+{#								<div class="bar">#}
+{##}
+{#									<div class="value">#}
+{#										<span>6%</span>#}
+{#									</div>#}
+{##}
+{#								</div>#}
+{##}
+{#								<div class="title">CA</div>#}
+{##}
+{#							</div>#}
+{##}
+{#							<div class="singleBar">#}
+{##}
+{#								<div class="bar">#}
+{##}
+{#									<div class="value">#}
+{#										<span>5%</span>#}
+{#									</div>#}
+{##}
+{#								</div>#}
+{##}
+{#								<div class="title">FI</div>#}
+{##}
+{#							</div>#}
+{##}
+{#							<div class="singleBar">#}
+{##}
+{#								<div class="bar">#}
+{##}
+{#									<div class="value">#}
+{#										<span>4%</span>#}
+{#									</div>#}
+{##}
+{#								</div>#}
+{##}
+{#								<div class="title">RU</div>#}
+{##}
+{#							</div>#}
+{##}
+{#							<div class="singleBar">#}
+{##}
+{#								<div class="bar">#}
+{##}
+{#									<div class="value">#}
+{#										<span>3%</span>#}
+{#									</div>#}
+{##}
+{#								</div>#}
+{##}
+{#								<div class="title">AU</div>#}
+{##}
+{#							</div>#}
+{##}
+{#							<div class="singleBar">#}
+{##}
+{#								<div class="bar">#}
+{##}
+{#									<div class="value">#}
+{#										<span>1%</span>#}
+{#									</div>#}
+{##}
+{#								</div>#}
+{##}
+{#								<div class="title">N/A</div>#}
+{##}
+{#							</div>#}
+{##}
+{#							<div class="clearfix"></div>#}
+{##}
+{#						</div>#}
+{##}
+{#					</div>#}
+{##}
+{#				</div><!--/span-->#}
+{##}
+{#				<div class="widget span3 red" onTablet="span6" onDesktop="span3">#}
+{##}
+{#					<h2><span class="glyphicons pie_chart"><i></i></span> Browsers</h2>#}
+{##}
+{#					<hr>#}
+{##}
+{#					<div class="content">#}
+{##}
+{#						<div class="browserStat big">#}
+{#							<img src="img/browser-chrome-big.png" alt="Chrome">#}
+{#							<span>34%</span>#}
+{#						</div>#}
+{#						<div class="browserStat big">#}
+{#							<img src="img/browser-firefox-big.png" alt="Firefox">#}
+{#							<span>34%</span>#}
+{#						</div>#}
+{#						<div class="browserStat">#}
+{#							<img src="img/browser-ie.png" alt="Internet Explorer">#}
+{#							<span>34%</span>#}
+{#						</div>#}
+{#						<div class="browserStat">#}
+{#							<img src="img/browser-safari.png" alt="Safari">#}
+{#							<span>34%</span>#}
+{#						</div>#}
+{#						<div class="browserStat">#}
+{#							<img src="img/browser-opera.png" alt="Opera">#}
+{#							<span>34%</span>#}
+{#						</div>#}
+{##}
+{##}
+{#					</div>#}
+{#				</div>#}
+{##}
+{#				<div class="widget yellow span4 noMargin" onTablet="span12" onDesktop="span4">#}
+{#					<h2><span class="glyphicons fire"><i></i></span> Server Load</h2>#}
+{#					<hr>#}
+{#					<div class="content">#}
+{#						 <div id="serverLoad2" style="height:224px;"></div>#}
+{#					</div>#}
+{#				</div>#}
+{##}
+			</div>
+
+{#			<div class="row-fluid">#}
+{##}
+{#				<div class="box black span4" onTablet="span6" onDesktop="span4">#}
+{#					<div class="box-header">#}
+{#						<h2><i class="halflings-icon white list"></i><span class="break"></span>Weekly Stat</h2>#}
+{#						<div class="box-icon">#}
+{#							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>#}
+{#							<a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>#}
+{#						</div>#}
+{#					</div>#}
+{#					<div class="box-content">#}
+{#						<ul class="dashboard-list metro">#}
+{#							<li>#}
+{#								<a href="#">#}
+{#									<i class="icon-arrow-up green"></i>#}
+{#									<strong>92</strong>#}
+{#									New Comments#}
+{#								</a>#}
+{#							</li>#}
+{#						  <li>#}
+{#							<a href="#">#}
+{#							  <i class="icon-arrow-down red"></i>#}
+{#							  <strong>15</strong>#}
+{#							  New Registrations#}
+{#							</a>#}
+{#						  </li>#}
+{#						  <li>#}
+{#							<a href="#">#}
+{#							  <i class="icon-minus blue"></i>#}
+{#							  <strong>36</strong>#}
+{#							  New Articles#}
+{#							</a>#}
+{#						  </li>#}
+{#						  <li>#}
+{#							<a href="#">#}
+{#							  <i class="icon-comment yellow"></i>#}
+{#							  <strong>45</strong>#}
+{#							  User reviews#}
+{#							</a>#}
+{#						  </li>#}
+{#						  <li>#}
+{#							<a href="#">#}
+{#							  <i class="icon-arrow-up green"></i>#}
+{#							  <strong>112</strong>#}
+{#							  New Comments#}
+{#							</a>#}
+{#						  </li>#}
+{#						  <li>#}
+{#							<a href="#">#}
+{#							  <i class="icon-arrow-down red"></i>#}
+{#							  <strong>31</strong>#}
+{#							  New Registrations#}
+{#							</a>#}
+{#						  </li>#}
+{#						  <li>#}
+{#							<a href="#">#}
+{#							  <i class="icon-minus blue"></i>#}
+{#							  <strong>93</strong>#}
+{#							  New Articles#}
+{#							</a>#}
+{#						  </li>#}
+{#						  <li>#}
+{#							<a href="#">#}
+{#							  <i class="icon-comment yellow"></i>#}
+{#							  <strong>256</strong>#}
+{#							  User reviews#}
+{#							</a>#}
+{#						  </li>#}
+{#						</ul>#}
+{#					</div>#}
+{#				</div><!--/span-->#}
+{##}
+{#				<div class="box black span4" onTablet="span6" onDesktop="span4">#}
+{#					<div class="box-header">#}
+{#						<h2><i class="halflings-icon white user"></i><span class="break"></span>Last Users</h2>#}
+{#						<div class="box-icon">#}
+{#							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>#}
+{#							<a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>#}
+{#						</div>#}
+{#					</div>#}
+{#					<div class="box-content">#}
+{#						<ul class="dashboard-list metro">#}
+{#							<li class="green">#}
+{#								<a href="#">#}
+{#									<img class="avatar" alt="Lucas" src="img/avatar.jpg">#}
+{#								</a>#}
+{#								<strong>Name:</strong> Łukasz Holeczek<br>#}
+{#								<strong>Since:</strong> Jul 25, 2012 11:09<br>#}
+{#								<strong>Status:</strong> Approved#}
+{#							</li>#}
+{#							<li class="yellow">#}
+{#								<a href="#">#}
+{#									<img class="avatar" alt="Bill" src="img/avatar9.jpg">#}
+{#								</a>#}
+{#								<strong>Name:</strong> Bill Cole<br>#}
+{#								<strong>Since:</strong> Jul 25, 2012 11:09<br>#}
+{#								<strong>Status:</strong> Pending#}
+{#							</li>#}
+{#							<li class="red">#}
+{#								<a href="#">#}
+{#									<img class="avatar" alt="Jane" src="img/avatar5.jpg">#}
+{#								</a>#}
+{#								<strong>Name:</strong> Jane Sanchez<br>#}
+{#								<strong>Since:</strong> Jul 25, 2012 11:09<br>#}
+{#								<strong>Status:</strong> Banned#}
+{#							</li>#}
+{#							<li class="blue">#}
+{#								<a href="#">#}
+{#									<img class="avatar" alt="Kate" src="img/avatar6.jpg">#}
+{#								</a>#}
+{#								<strong>Name:</strong> Kate Presley<br>#}
+{#								<strong>Since:</strong> Jul 25, 2012 11:09<br>#}
+{#								<strong>Status:</strong> Updated#}
+{#							</li>#}
+{#						</ul>#}
+{#					</div>#}
+{#				</div><!--/span-->#}
+{##}
+{#				<div class="box black span4 noMargin" onTablet="span12" onDesktop="span4">#}
+{#					<div class="box-header">#}
+{#						<h2><i class="halflings-icon white check"></i><span class="break"></span>To Do List</h2>#}
+{#						<div class="box-icon">#}
+{#							<a href="#" class="btn-setting"><i class="halflings-icon white wrench"></i></a>#}
+{#							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>#}
+{#							<a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>#}
+{#						</div>#}
+{#					</div>#}
+{#					<div class="box-content">#}
+{#						<div class="todo metro">#}
+{#							<ul class="todo-list">#}
+{#								<li class="red">#}
+{#									<a class="action icon-check-empty" href="#"></a>#}
+{#									Windows Phone 8 App#}
+{#									<strong>today</strong>#}
+{#								</li>#}
+{#								<li class="red">#}
+{#									<a class="action icon-check-empty" href="#"></a>#}
+{#									New frontend layout#}
+{#									<strong>today</strong>#}
+{#								</li>#}
+{#								<li class="yellow">#}
+{#									<a class="action icon-check-empty" href="#"></a>#}
+{#									Hire developers#}
+{#									<strong>tommorow</strong>#}
+{#								</li>#}
+{#								<li class="yellow">#}
+{#									<a class="action icon-check-empty" href="#"></a>#}
+{#									Windows Phone 8 App#}
+{#									<strong>tommorow</strong>#}
+{#								</li>#}
+{#								<li class="green">#}
+{#									<a class="action icon-check-empty" href="#"></a>#}
+{#									New frontend layout#}
+{#									<strong>this week</strong>#}
+{#								</li>#}
+{#								<li class="green">#}
+{#									<a class="action icon-check-empty" href="#"></a>#}
+{#									Hire developers#}
+{#									<strong>this week</strong>#}
+{#								</li>#}
+{#								<li class="blue">#}
+{#									<a class="action icon-check-empty" href="#"></a>#}
+{#									New frontend layout#}
+{#									<strong>this month</strong>#}
+{#								</li>#}
+{#								<li class="blue">#}
+{#									<a class="action icon-check-empty" href="#"></a>#}
+{#									Hire developers#}
+{#									<strong>this month</strong>#}
+{#								</li>#}
+{#							</ul>#}
+{#						</div>#}
+{#					</div>#}
+{#				</div>#}
+{##}
+{#			</div>#}
+
+{#			<div class="row-fluid">#}
+{##}
+{#				<a class="quick-button metro yellow span2">#}
+{#					<i class="icon-group"></i>#}
+{#					<p>Users</p>#}
+{#					<span class="badge">237</span>#}
+{#				</a>#}
+{#				<a class="quick-button metro red span2">#}
+{#					<i class="icon-comments-alt"></i>#}
+{#					<p>Comments</p>#}
+{#					<span class="badge">46</span>#}
+{#				</a>#}
+{#				<a class="quick-button metro blue span2">#}
+{#					<i class="icon-shopping-cart"></i>#}
+{#					<p>Orders</p>#}
+{#					<span class="badge">13</span>#}
+{#				</a>#}
+{#				<a class="quick-button metro green span2">#}
+{#					<i class="icon-barcode"></i>#}
+{#					<p>Products</p>#}
+{#				</a>#}
+{#				<a class="quick-button metro pink span2">#}
+{#					<i class="icon-envelope"></i>#}
+{#					<p>Messages</p>#}
+{#					<span class="badge">88</span>#}
+{#				</a>#}
+{#				<a class="quick-button metro black span2">#}
+{#					<i class="icon-calendar"></i>#}
+{#					<p>Calendar</p>#}
+{#				</a>#}
+{##}
+{#				<div class="clearfix"></div>#}
+{##}
+{#			</div><!--/row-->#}
+
+
+    {% endblock %}
+	        </div><!--/.fluid-container-->
+
+			<!-- end: Content -->
+		</div><!--/#content.span10-->
+		</div><!--/fluid-row-->
+		
+	<div class="modal hide fade" id="myModal">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h3>Insert Blood Value</h3>
+		</div>
+		<div class="modal-body">
+             <h2>FUNZIONO</h2>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn" data-dismiss="modal">Close</a>
+			<a href="#" class="btn btn-primary">Save changes</a>
+		</div>
+	</div>
+	
+	<div class="clearfix"></div>
+	
+	<footer>
+		<p>
+			<span style="text-align:left;float:left">&copy; <a href="" target="_blank"><img class="icons" style="height: 35px; width: 100px" src="{% static 'img/log-back/TNE-white.png' %}"></a></span>
+			<span class="hidden-phone" style="text-align:right;float:right;">Powered by: <a href="#" style="color: white">Automation Department</a></span>
+		</p>
+
+	</footer>
+	
+	<!-- start: JavaScript-->
+
+
+        <script src="{% static "js/jquery-migrate-1.0.0.min.js" %}"></script>
+
+		<script src="{% static "js/jquery-ui-1.10.0.custom.min.js" %}"></script>
+
+		<script src="{% static "js/jquery.ui.touch-punch.js" %}"></script>
+
+		<script src="{% static "js/modernizr.js" %}"></script>
+
+		<script src="{% static "js/bootstrap.min.js" %}"></script>
+
+		<script src="{% static "js/jquery.cookie.js" %}"></script>
+
+		<script src='{% static 'js/fullcalendar.min.js' %}'></script>
+
+		<script src='{% static 'js/jquery.dataTables.min.js'%}'></script>
+
+		<script src="{% static "js/excanvas.js" %}"></script>
+		<script src="{% static "js/jquery.flot.js" %}"></script>
+		<script src="{% static "js/jquery.flot.pie.js" %}"></script>
+		<script src="{% static "js/jquery.flot.stack.js" %}"></script>
+		<script src="{% static "js/jquery.flot.resize.min.js"%}"></script>
+
+		<script src="{% static "js/jquery.chosen.min.js"%}"></script>
+
+		<script src="{% static "js/jquery.uniform.min.js"%}"></script>
+
+		<script src="{% static "js/jquery.cleditor.min.js"%}"></script>
+
+		<script src="{% static "js/jquery.noty.js"%}"></script>
+
+		<script src="{% static "js/jquery.elfinder.min.js" %}"></script>
+
+		<script src="{% static "js/jquery.raty.min.js" %}"></script>
+
+		<script src="{% static "js/jquery.iphone.toggle.js" %}"></script>
+
+		<script src="{% static "js/jquery.uploadify-3.1.min.js"%}"></script>
+
+		<script src="{% static "js/jquery.gritter.min.js"%}"></script>
+
+		<script src="{% static "js/jquery.imagesloaded.js"%}"></script>
+
+		<script src="{% static "js/jquery.masonry.min.js"%}"></script>
+
+		<script src="{% static "js/jquery.knob.modified.js"%}"></script>
+
+		<script src="{% static "js/jquery.sparkline.min.js"%}"></script>
+
+
+
+        <script src="{% static "js/counter.js"%}"></script>
+
+		<script src="{% static "js/retina.js"%}"></script>
+
+		<script src="{% static "js/custom.js"%}"></script>
+	<!-- end: JavaScript-->
+	
+</body>
+</html>

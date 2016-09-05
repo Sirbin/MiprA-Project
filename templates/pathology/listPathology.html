@@ -1,0 +1,70 @@
+{% extends 'base/index.html' %}
+
+{% load staticfiles %}
+{% load tz %}
+
+
+{% block title %} Lista Patologie {% endblock %}
+
+
+
+
+{% block content %}
+
+     {% include 'patients/navbar_content.html' %}
+
+     <div class="row-fluid sortable ui-sortable ">
+        <div class="box span12">
+            <div class="box-header">
+                <h2>
+                    <i class="halflings-icon user"></i>
+                    <span class="break"></span>
+                    Lista Patologie
+                </h2>
+                <div class="box-icon">
+					<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+                    <a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <a  class="btn btn-danger btn-pat" data-rel='tooltip' data-original-title="Aggiungi Patologia"
+                                        href="{% url 'registration_pathology' %}"/>
+                                <i class="halflings-icon plus white"></i></a><!--style="margin-top: 6px;margin-left: 3px;"-->
+                        </div>
+                    </div>
+                    <table class="table table-striped table-bordered bootstrap-datatable datatable dataTable" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
+						  <thead>
+							  <tr role="row">
+                                  <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending" style="width: 10px;">Id</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 150px;text-align: center">Nome</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Role: activate to sort column ascending" style="width: 1000px; text-align: center">Descrizione</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Patology: activate to sort column ascending" style="width: 250px;text-align: center">Azioni</th>
+                              </tr>
+						  </thead>
+                        <tbody role="alert" aria-live="polite" aria-relevant="all">
+                        {% for pathologies in pathology %}
+                        <tr class="odd">
+								<td class=" sorting_1">{{pathologies.id}}</td>
+								<td class="center ">{{pathologies.name_of_pathology}}</td>
+								<td class="center ">{{ pathologies.description_of_pathology }}</td>
+								<td class="center ">
+									<a class="btn btn-success" data-rel='tooltip' data-original-title="Modifica Patologia" href="{% url 'edit_pathology' pathology_id=pathologies.id %}">
+										<i class="halflings-icon white edit"></i>
+									</a>
+									<a class="btn btn-danger" data-rel='tooltip' data-original-title="Elimina Patologia" href="{% url 'delete_pathology' pathology_id=pathologies.id %}">
+										<i class="halflings-icon white trash"></i>
+									</a>
+								</td>
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+     </div>
+
+
+{% endblock %}

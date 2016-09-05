@@ -1,0 +1,95 @@
+{% extends 'base/index.html'%}
+{% load staticfiles %}
+
+{% block title %} Profile Manager {% endblock %}
+
+
+
+{% block content %}
+    {% include 'patients/navbar_content.html' %}
+{#    {% block registraiouser %}#}
+{##}
+{#        <div class="box span12">#}
+{#            <div class="box-content">#}
+{#                <p class="center">#}
+{#               <a href="{% url 'registration_user' %}" class="btn btn-primary" ><i class="halflings-icon white user"></i>Add User</a>#}
+{#               <a href="" class="btn btn-primary" id="add-sticky"><i class="halflings-icon white "></i>Add Group</a>#}
+{##}
+{#                </p>#}
+{#            </div>#}
+{##}
+{#        </div>#}
+{##}
+{#    {% endblock %}#}
+
+
+
+
+
+    <div class="row-fluid sortable ui-sortable ">
+        <div class="box span12">
+            <div class="box-header">
+                <h2>
+                    <i class="halflings-icon user"></i>
+                    <span class="break"></span>
+                    Lista Utenti
+                </h2>
+                <div class="box-icon">
+					<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+                    <a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                     <div class="row-fluid">
+                        <div class="span12">
+                            <a  class="btn btn-danger btn-pro" data-rel='tooltip' data-original-title="Aggiungi Utente"
+                                        href="{% url 'registration_user' %}"/>
+                                <i class="halflings-icon plus white"></i></a><!--style="margin-top: 6px;margin-left: 3px;"-->
+                        </div>
+                    </div>
+                    <table class="table table-striped table-bordered bootstrap-datatable datatable dataTable" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
+						  <thead>
+							  <tr role="row">
+                                  <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending" style="width: 10px;text-align: center">Id</th>
+                                  <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending" style="width: 289px;text-align: center">Username</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Date registered: activate to sort column ascending" style="width: 212px;text-align: center">Date Registrazione</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Role: activate to sort column ascending" style="width: 116px;text-align: center">Ruolo</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 123px;text-align: center">Status</th>
+                                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending" style="width: 248px;text-align: center">Azioni</th>
+                              </tr>
+						  </thead>
+                          <tbody role="alert" aria-live="polite" aria-relevant="all">
+                        {% for user in userList%}
+                        <tr class="odd">
+                                <td class=" sorting_1">{{user.pk}}</td>
+								<td class=" sorting_1">{{user.username}}</td>
+								<td class="center ">{{user.date_joined.date}}</td>
+								<td class="center ">{% if user.is_superuser %}SuperUser{% else %}Member{% endif %}</td>
+								<td class="center ">
+                                    {% if user.is_active == True %}
+									<span class="label label-success">Active</span>
+                                    {% else %}
+                                    <span class="label label-important">Banned</span>
+                                    {% endif %}
+								</td>
+								<td class="center ">
+{#									<a class="btn btn-success" data-rel='tooltip' data-original-title="Modifica Utente "href="">#}
+{#										<i class="halflings-icon white zoom-in"></i>#}
+{#									</a>#}
+									<a class="btn btn-success" data-rel='tooltip' data-original-title="Modifica Utente" href="{% url 'edit_user' user_id=user.id %}">
+										<i class="halflings-icon white edit"></i>
+									</a>
+									<a class="btn btn-danger" data-rel='tooltip' data-original-title="Elimina Utente" href="{% url 'delete_user' user_id=user.id %}">
+										<i class="halflings-icon white trash"></i>
+									</a>
+								</td>
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

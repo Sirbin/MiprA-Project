@@ -1,0 +1,198 @@
+// 1) upload sources to web server
+// 2) replace path in all the lines below from http://www.yourdomainame.com/path_to_amcharts_sources/ to the actual domain name and actual path to the sources
+// 3) go to http://closure-compiler.appspot.com/home
+// 4) copy paste from // ==ClosureCompiler== to // ==/ClosureCompiler== (one block at a time) to the left side of a page.
+// 5) select different compiling mode if you need
+// 6) click compile. If you did everything correctly the compiler will output compiled source.
+// 7) copy the output and paste it to appropriate file, save.
+
+
+// BASE amcharts.js
+// ==ClosureCompiler==
+// @compilation_level SIMPLE_OPTIMIZATIONS
+// @output_file_name default.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/utils/Class.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/utils/Utils.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/axes/AxisBase.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/axes/ValueAxis.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/axes/RecAxis.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/axes/RecItem.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/axes/RecFill.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/chartClasses/AmChart.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/chartClasses/AmGraph.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/chartClasses/ChartCursor.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/chartClasses/SimpleChartScrollbar.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/chartClasses/ChartScrollbar.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/chartClasses/AmBalloon.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/chartClasses/AmCoordinateChart.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/chartClasses/TrendLine.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/chartClasses/Image.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/geom/Geom.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/geom/Bezier.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/drawingEngine/AmDraw.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/drawingEngine/AmDObject.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/drawingEngine/VMLRenderer.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/drawingEngine/SVGRenderer.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/AmLegend.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/utils/DateUtils.js
+// ==/ClosureCompiler==
+
+
+// FUNNEL
+// funnel.js
+// ==ClosureCompiler==
+// @compilation_level SIMPLE_OPTIMIZATIONS
+// @output_file_name default.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/chartClasses/AmSlicedChart.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/AmFunnelChart.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/geom/Cuboid.js
+// ==/ClosureCompiler==
+
+
+// GANTT
+// gant.js
+// ==ClosureCompiler==
+// @compilation_level SIMPLE_OPTIMIZATIONS
+// @output_file_name default.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/AmGanttChart.js
+// ==/ClosureCompiler==
+
+// GAUGE
+// gauge.js
+// ==ClosureCompiler==
+// @compilation_level SIMPLE_OPTIMIZATIONS
+// @output_file_name default.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/axes/GaugeAxis.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/axes/GaugeArrow.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/AmAngularGauge.js
+// ==/ClosureCompiler==
+
+
+// PIE
+// pie.js
+// ==ClosureCompiler==
+// @compilation_level SIMPLE_OPTIMIZATIONS
+// @output_file_name default.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/chartClasses/AmSlicedChart.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/AmPieChart.js
+// ==/ClosureCompiler==
+
+// RADAR
+// radar.js
+// ==ClosureCompiler==
+// @compilation_level SIMPLE_OPTIMIZATIONS
+// @output_file_name default.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/AmRadarChart.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/axes/RadAxis.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/axes/RadItem.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/axes/RadFill.js
+// ==/ClosureCompiler==
+
+
+// SERIAL
+// serial.js
+// ==ClosureCompiler==
+// @compilation_level SIMPLE_OPTIMIZATIONS
+// @output_file_name default.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/chartClasses/AmRectangularChart.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/AmSerialChart.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/geom/Cuboid.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/axes/CategoryAxis.js
+// ==/ClosureCompiler==
+
+
+// XY
+// xy.js
+// ==ClosureCompiler==
+// @compilation_level SIMPLE_OPTIMIZATIONS
+// @output_file_name default.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/chartClasses/AmRectangularChart.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/AmXYChart.js
+// ==/ClosureCompiler==
+
+
+// STOCK
+// stock.js
+// ==ClosureCompiler==
+// @compilation_level SIMPLE_OPTIMIZATIONS
+// @output_file_name default.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/stock/AmStockChart.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/stock/DataSet.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/stock/PeriodSelector.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/stock/StockGraph.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/stock/StockPanel.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/stock/CategoryAxesSettings.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/stock/ChartCursorSettings.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/stock/ChartScrollbarSettings.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/stock/LegendSettings.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/stock/PanelsSettings.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/stock/StockEventsSettings.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/stock/ValueAxesSettings.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/stock/StockUtils.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/stock/StockLegend.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/stock/DataSetSelector.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/stock/StackedBullet.js
+// ==/ClosureCompiler==
+
+
+// AMMAP
+// ammap.js
+// ==ClosureCompiler==
+// @compilation_level SIMPLE_OPTIMIZATIONS
+// @output_file_name default.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/utils/Class.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/utils/Utils.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/drawingEngine/AmDraw.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/drawingEngine/AmDObject.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/drawingEngine/SVGRenderer.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/chartClasses/AmChart.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/chartClasses/AmBalloon.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/geom/Geom.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/AmLegend.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/AmMap.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/ZoomControl.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/SimpleButton.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/SmallMap.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/AreasProcessor.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/AreasSettings.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/ImagesProcessor.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/ImagesSettings.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/LinesProcessor.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/LinesSettings.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/MapObject.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/MapArea.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/MapLine.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/MapImage.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/MapUtils.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/MapData.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/DescriptionWindow.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/ValueLegend.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/ObjectList.js
+// ==/ClosureCompiler==
+
+
+// AMMAP small
+// ammap_amcharts_extension.js
+// ==ClosureCompiler==
+// @compilation_level SIMPLE_OPTIMIZATIONS
+// @output_file_name default.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/AmMap.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/ZoomControl.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/SimpleButton.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/SmallMap.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/AreasProcessor.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/AreasSettings.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/ImagesProcessor.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/ImagesSettings.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/LinesProcessor.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/LinesSettings.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/MapObject.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/MapArea.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/MapLine.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/MapImage.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/MapUtils.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/MapData.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/DescriptionWindow.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/ValueLegend.js
+// @code_url http://www.yourdomain.com/path-to-amcharts/mapClasses/ObjectList.js
+// ==/ClosureCompiler==

@@ -1,0 +1,231 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="content-script-type" content="text/javascript">
+		<title>amCharts</title>
+
+		<script src="amcharts/utils/Class.js" type="text/javascript"></script>
+        <script src="amcharts/utils/Utils.js" type="text/javascript"></script>
+		<script src="amcharts/utils/DateUtils.js" type="text/javascript"></script>
+
+		<script src="amcharts/drawingEngine/AmDraw.js" type="text/javascript"></script>
+		<script src="amcharts/drawingEngine/AmDObject.js" type="text/javascript"></script>
+		<script src="amcharts/drawingEngine/SVGRenderer.js" type="text/javascript"></script>
+		<script src="amcharts/drawingEngine/VMLRenderer.js" type="text/javascript"></script>
+
+		<script src="amcharts/chartClasses/AmChart.js" type="text/javascript"></script>
+		<script src="amcharts/chartClasses/AmBalloon.js" type="text/javascript"></script>
+        <script src="amcharts/chartClasses/TrendLine.js" type="text/javascript"></script>
+        <script src="amcharts/chartClasses/AmCoordinateChart.js" type="text/javascript"></script>
+        <script src="amcharts/chartClasses/AmRectangularChart.js" type="text/javascript"></script>
+		<script src="amcharts/chartClasses/AmSlicedChart.js" type="text/javascript"></script>
+        <script src="amcharts/chartClasses/AmGraph.js" type="text/javascript"></script>
+        <script src="amcharts/chartClasses/ChartCursor.js" type="text/javascript"></script>
+        <script src="amcharts/chartClasses/SimpleChartScrollbar.js" type="text/javascript"></script>
+        <script src="amcharts/chartClasses/ChartScrollbar.js" type="text/javascript"></script>
+
+		<script src="amcharts/geom/Bezier.js" type="text/javascript"></script>
+        <script src="amcharts/geom/Cuboid.js" type="text/javascript"></script>
+        <script src="amcharts/geom/Geom.js" type="text/javascript"></script>
+
+        <script src="amcharts/AmLegend.js" type="text/javascript"></script>
+        <script src="amcharts/AmPieChart.js" type="text/javascript"></script>
+        <script src="amcharts/AmXYChart.js" type="text/javascript"></script>
+        <script src="amcharts/AmSerialChart.js" type="text/javascript"></script>
+        <script src="amcharts/AmRadarChart.js" type="text/javascript"></script>
+		<script src="amcharts/AmAngularGauge.js" type="text/javascript"></script>
+		<script src="amcharts/AmFunnelChart.js" type="text/javascript"></script>
+
+        <script src="amcharts/axes/AxisBase.js" type="text/javascript"></script>
+        <script src="amcharts/axes/ValueAxis.js" type="text/javascript"></script>
+        <script src="amcharts/axes/CategoryAxis.js" type="text/javascript"></script>
+        <script src="amcharts/axes/RecAxis.js" type="text/javascript"></script>
+        <script src="amcharts/axes/RecItem.js" type="text/javascript"></script>
+        <script src="amcharts/axes/RecFill.js" type="text/javascript"></script>
+        <script src="amcharts/axes/RadAxis.js" type="text/javascript"></script>
+        <script src="amcharts/axes/RadItem.js" type="text/javascript"></script>
+        <script src="amcharts/axes/RadFill.js" type="text/javascript"></script>
+		<script src="amcharts/axes/GaugeAxis.js" type="text/javascript"></script>
+		<script src="amcharts/axes/GaugeArrow.js" type="text/javascript"></script>
+
+		<script>
+			var chart1,chart2,chart3,chart4,chart5,chart6;
+			var chartData = {
+				visits: [
+					{ "country": "USA", "visits": 4252 },
+					{ "country": "China", "visits": 1882 },
+					{ "country": "Japan", "visits": 1809 },
+					{ "country": "Germany", "visits": 1322 },
+					{ "country": "UK", "visits": 1122 },
+					{ "country": "France", "visits": 1114 },
+					{ "country": "India", "visits": 984 }
+				],
+				scatter:  [
+					{ "x": 10, "y": 14, "value": 59 },
+					{ "x": 5, "y": 3, "value": 50 },
+					{ "x": -10, "y": -3, "value": 19 },
+					{ "x": -6, "y": 5, "value": 65 },
+					{ "x": 15, "y": -4, "value": 92 },
+					{ "x": 13, "y": 1, "value": 8 },
+					{ "x": 1, "y": 6, "value": 35 }
+				],
+				funnel: [
+					{ "title": "Website visits", "value": 300 },
+					{ "title": "Downloads", "value": 123 },
+					{ "title": "Requested prices", "value": 98 },
+					{ "title": "Contaced", "value": 72 },
+					{ "title": "Purchased", "value": 35 },
+					{ "title": "Asked for support", "value": 25 },
+					{ "title": "Purchased more", "value": 18 }
+				]
+			}
+
+			// PIE CHART
+			var chart1 = AmCharts.makeChart("container1", {
+				"type": 'pie',
+				"path": "../amcharts/",
+				"valueField": 'visits',
+				"titleField": 'country',
+				"legend": {},
+				"labelText": "[[title]]",
+				"dataProvider": chartData.visits
+			});
+
+			// COLUMN CHART
+			var chart2 = AmCharts.makeChart("container2", {
+				"type": 'serial',
+				"path": "../amcharts/",
+				"graphs": [{
+					"type": 'column',
+					"pathToImages": "../amcharts/images/",
+					"fillAlphas": .8,
+					"valueField": 'visits',
+					"balloonText": "[[category]]: [[value]]"
+				}],
+				"categoryField": 'country',
+				"categoryAxis": {
+					"labelRotation": 90,
+					"gridPosition": "start"
+				},
+				"dataProvider": chartData.visits
+			});
+
+			// RADAR CHART
+			var chart3 = AmCharts.makeChart("container3", {
+				"type": 'radar',
+				"pathToImages": "../amcharts/images/",
+				"graphs": [{
+					"valueField": 'visits',
+					"bullet": "round",
+					"balloonText": "[[value]] litres of beer per year"
+				}],
+				"categoryField": 'country',
+				"valueAxes": [{
+					"dashLength": 3,
+					"axisAlpha": .15,
+					"axisTitleOffset": 20
+				}],
+				"dataProvider": chartData.visits
+			});
+
+			// SCATTER CHART
+			var chart4 = AmCharts.makeChart("container4", {
+				"type": 'xy',
+				"path": "../amcharts/",
+				"graphs": [{
+					"xField": 'x',
+					"yField": 'y',
+					"valueField": 'value',
+					"lineAlpha": 0,
+					"bullet": 'round'
+				}],
+				"chartScrollbar": {},
+				"chartCursor": {},
+				"dataProvider": chartData.scatter
+			});
+
+			// GAUGE CHART
+			var chart5 = AmCharts.makeChart("container5", {
+				"type": "gauge",
+				"path": "../amcharts/",
+				"titles": [
+					{
+						"text": "Speedometer",
+						"size": 15
+					}
+				],
+				"arrows": [
+					{
+						"id": "GaugeAxis-1"
+					}
+				],
+				"axes": [
+					{
+						"id": "GaugeAxis-1",
+						"bottomText": "0 km/h",
+						"bottomTextYOffset": -20,
+						"endValue": 220,
+						"valueInterval": 10,
+						"bands": [
+							{
+								"color": "#00CC00",
+								"startValue": 0,
+								"endValue": 90,
+							},
+							{
+								"color": "#ffac29",
+								"startValue": 90,
+								"endValue": 130
+							},
+							{
+								"color": "#ea3838",
+								"innerRadius": "95%",
+								"startValue": 130,
+								"endValue": 220
+							}
+						]
+					}
+				]
+			});
+			chart5.addListener('rendered',function() {
+				setInterval(function() {
+					var i;
+					var value = Math.round(Math.random() * 200);
+					for ( i in chart5.arrows ) {
+						chart5.arrows[i].setValue(value)
+					}
+
+					for ( i in chart5.axes ) {
+						chart5.axes[i].setBottomText(value + " km/h")
+					}
+				},3000);
+			});
+
+			// FUNNEL
+			var chart6 = AmCharts.makeChart('container6',{
+				"type": "funnel",
+				"path": "../amcharts/",
+				"balloonText": "[[title]]:<b>[[value]]</b>",
+				"labelPosition": "right",
+				"neckHeight": "30%",
+				"neckWidth": "40%",
+				"marginRight": 160,
+				"titleField": "title",
+				"valueField": "value",
+				"dataProvider": chartData.funnel
+			})
+		</script>
+	</head>
+	<body>
+		<div id="container1" style="width: 50%; float:left; height: 400px;"></div>
+		<div id="container2" style="width: 50%; float:left; height: 400px;"></div>
+		<br>
+		<div id="container3" style="width: 50%; float:left; height: 400px;"></div>
+		<div id="container4" style="width: 50%; float:left; height: 400px;"></div>
+		<br>
+		<div id="container5" style="width: 50%; float:left; height: 400px;"></div>
+		<div id="container6" style="width: 50%; float:left; height: 400px;"></div>
+	</body>
+
+</html>
