@@ -5,7 +5,7 @@ billiard==3.3.0.23
 celery==3.1.23
 cffi==1.7.0
 codicefiscale==0.9
-cryptography==1.4
+cryptography==3.2
 defusedxml==0.4.1
 demjson==2.2.4
 Django==1.8.5
