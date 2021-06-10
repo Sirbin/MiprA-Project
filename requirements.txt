@@ -8,7 +8,7 @@ codicefiscale==0.9
 cryptography==1.4
 defusedxml==0.4.1
 demjson==2.2.4
-Django==1.8.5
+Django==2.2.24
 django-admin-bootstrapped==2.5.6
 django-allauth==0.24.1
 django-appconf==1.0.2
