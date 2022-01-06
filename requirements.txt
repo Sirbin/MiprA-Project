@@ -2,7 +2,7 @@ amqp==1.4.9
 anyjson==0.3.3
 Babel==2.2.0
 billiard==3.3.0.23
-celery==3.1.23
+celery==5.2.2
 cffi==1.7.0
 codicefiscale==0.9
 cryptography==1.4
